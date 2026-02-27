@@ -6,7 +6,6 @@ const filesToCache = [
   '/assets/app/app.css',
   '/assets/app/app.js',
   '/assets/image/avatar.jpg',
-  '/assets/image/developer_badge.png',
   '/assets/image/favicon.ico',
   '/assets/icons/android-chrome-192x192.png',
   '/assets/icons/android-chrome-512x512.png'

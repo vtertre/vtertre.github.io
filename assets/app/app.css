@@ -47,6 +47,7 @@ p {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  gap: 24px;
   margin-bottom: 24px;
 }
 
@@ -55,13 +56,13 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 100%;
-  padding-left: 24px;
+  flex: 1;
 }
 
 .avatar {
   width: 72px;
   height: 72px;
+  flex-shrink: 0;
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2),
     0 1px 1px 0 rgba(0, 0, 0, .14),
     0 1px 3px 0 rgba(0, 0, 0, .12)!important;
@@ -73,20 +74,6 @@ p {
 }
 
 .avatar, .avatar img {
-  border-radius: 50%;
-}
-
-.badges {
-  width: 72px;
-  height: 72px;
-}
-
-.badges .badge, .badges img {
-  width: inherit;
-  height: inherit;
-}
-
-.badge {
   border-radius: 50%;
 }
 
