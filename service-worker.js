@@ -8,53 +8,59 @@ const filesToCache = [
   '/assets/image/avatar.jpg',
   '/assets/image/favicon.ico',
   '/assets/icons/android-chrome-192x192.png',
-  '/assets/icons/android-chrome-512x512.png'
+  '/assets/icons/android-chrome-512x512.png',
 ];
 const maxAgeRegExp = new RegExp(/max-age=(\d+)/);
 const defaultExpirationInSeconds = 600;
 
-self.addEventListener('install', event => event.waitUntil(
-  caches.open(currentCache).then(cache => cache.addAll(filesToCache))
-));
+self.addEventListener('install', event =>
+  event.waitUntil(caches.open(currentCache).then(cache => cache.addAll(filesToCache))),
+);
 
 self.addEventListener('activate', event => {
-  event.waitUntil(async function () {
-    const keys = await caches.keys();
-    return Promise.all(
-      keys.map(key => {
-        if (currentCache !== key) {
-          return caches.delete(key);
-        }
-      })
-    )
-  }());
+  event.waitUntil(
+    (async function () {
+      const keys = await caches.keys();
+      return Promise.all(
+        keys.map(key => {
+          if (currentCache !== key) {
+            return caches.delete(key);
+          }
+        }),
+      );
+    })(),
+  );
 });
 
 self.addEventListener('fetch', event => {
-  event.respondWith(async function () {
-    const cacheResponse = await caches.match(event.request);
-    if (cacheResponse) {
-      if (isExpired(cacheResponse)) {
-        const refreshRequest = buildRefreshRequest(event.request, cacheResponse);
-        try {
-          const networkResponse = await fetch(refreshRequest);
-          if (networkResponse.status === 304) {
-            const result = cacheResponse.clone();
-            renew(cacheResponse).then(renewedResponse => addToCache(refreshRequest, renewedResponse));
-            return result;
-          } else {
-            const result = networkResponse.clone();
-            addToCache(refreshRequest, networkResponse);
-            return result;
+  event.respondWith(
+    (async function () {
+      const cacheResponse = await caches.match(event.request);
+      if (cacheResponse) {
+        if (isExpired(cacheResponse)) {
+          const refreshRequest = buildRefreshRequest(event.request, cacheResponse);
+          try {
+            const networkResponse = await fetch(refreshRequest);
+            if (networkResponse.status === 304) {
+              const result = cacheResponse.clone();
+              renew(cacheResponse).then(renewedResponse =>
+                addToCache(refreshRequest, renewedResponse),
+              );
+              return result;
+            } else {
+              const result = networkResponse.clone();
+              addToCache(refreshRequest, networkResponse);
+              return result;
+            }
+          } catch (error) {
+            return cacheResponse;
           }
-        } catch (error) {
-          return cacheResponse;
         }
+        return cacheResponse;
       }
-      return cacheResponse;
-    }
-    return fetch(event.request);
-  }());
+      return fetch(event.request);
+    })(),
+  );
 });
 
 function isExpired(cachedResponse) {

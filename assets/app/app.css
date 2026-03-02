@@ -24,7 +24,8 @@ body {
   padding: 0 10px;
 }
 
-h1, h3 {
+h1,
+h3 {
   margin: 0;
   padding: 0;
 }
@@ -63,9 +64,10 @@ p {
   width: 72px;
   height: 72px;
   flex-shrink: 0;
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2),
-    0 1px 1px 0 rgba(0, 0, 0, .14),
-    0 1px 3px 0 rgba(0, 0, 0, .12)!important;
+  box-shadow:
+    0 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12) !important;
 }
 
 .avatar img {
@@ -73,7 +75,8 @@ p {
   height: inherit;
 }
 
-.avatar, .avatar img {
+.avatar,
+.avatar img {
   border-radius: 50%;
 }
 
@@ -107,7 +110,7 @@ p {
 
 .tab__content {
   display: none;
-  animation: fadeEffect .3s;
+  animation: fadeEffect 0.3s;
 }
 
 @keyframes fadeEffect {
@@ -141,7 +144,7 @@ p {
 }
 
 .experience:not(:last-child):after {
-  content: "";
+  content: '';
   width: 10%;
   border-bottom: 1px solid var(--primary-color);
   display: block;

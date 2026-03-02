@@ -1,0 +1,7 @@
+{
+  "name": "vtertre.github.io",
+  "private": "true",
+  "devDependencies": {
+    "prettier": "^3.8.1"
+  }
+}

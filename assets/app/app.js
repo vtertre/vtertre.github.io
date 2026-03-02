@@ -4,7 +4,7 @@ window.onload = function () {
     var targetElementId = activeTabs[0].dataset.target;
     displayElementById(targetElementId);
   }
-}
+};
 
 function openTargetTab(event) {
   var clickedTabElement = event.currentTarget;
